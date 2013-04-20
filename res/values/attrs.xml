@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SaveGoalView">
+        <attr name="name" format="string" />
+        <attr name="amount" format="integer" />
+        <attr name="days" format="integer" />
+        <attr name="left_or_due" format="string" />
+    </declare-styleable>
+
+</resources>

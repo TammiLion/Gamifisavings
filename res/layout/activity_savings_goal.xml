@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".SavingsGoalActivity" >
+
+    <EditText
+        android:id="@+id/name_goal"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="@string/name_goal"
+        android:inputType="textCapSentences" />
+
+    <EditText
+        android:id="@+id/amount_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:hint="@string/amount_goal"
+        android:inputType="number" />
+
+    <ToggleButton
+        android:id="@+id/togglebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:onClick="onToggleClicked"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:textOff="No begin or end date"
+        android:textOn="Begin and end date" />
+
+    <DatePicker
+        android:id="@+id/begin_date"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="2" />
+
+    <DatePicker
+        android:id="@+id/end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="2" />
+
+</LinearLayout>
