@@ -126,10 +126,19 @@ public class MainActivity extends Activity {
 		case R.id.savings:
 			// Add savings goal in action bar clicked; go to GoalActivity
 			Intent intent = new Intent(this, SavingsGoalActivity.class);
+			intent.putExtra("NameList", getNameList());
 			startActivity(intent);
 			return true;
 		default:
 			return true;
 		}
+	}
+
+	public ArrayList<String> getNameList() {
+		ArrayList<String> nameList = new ArrayList<String>();
+		for(SaveGoal goal: saveGoals) {
+			nameList.add(goal.getName());
+		}
+		return nameList;
 	}
 }

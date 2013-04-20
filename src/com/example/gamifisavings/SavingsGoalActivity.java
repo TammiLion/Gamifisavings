@@ -1,9 +1,11 @@
 package com.example.gamifisavings;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +22,7 @@ public class SavingsGoalActivity extends Activity {
 	private DatePicker beginDate;
 	private DatePicker endDate;
 	private boolean hasDates = false;
+	private ArrayList<String> nameList = new ArrayList<String>();
 	private Calendar beginCalendar = Calendar.getInstance();
 	private Calendar endCalendar = Calendar.getInstance();
 	private OnDateChangedListener beginDateListener = new OnDateChangedListener() {
@@ -52,6 +55,8 @@ public class SavingsGoalActivity extends Activity {
 		setContentView(R.layout.activity_savings_goal);
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+
+		nameList = getIntent().getStringArrayListExtra("NameList");
 
 		name = (EditText) findViewById(R.id.name_goal);
 		amount = (EditText) findViewById(R.id.amount_goal);
@@ -91,7 +96,9 @@ public class SavingsGoalActivity extends Activity {
 		case R.id.save_goal:
 			//Checks if name has been filled in. True: sent intent to MainActivity. False: show message to user indicating missing field.
 			if(name.getText().toString().equals("")) {
-				Toast.makeText(this, "You have to fill in the name of your goal", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Your goal has to have a name", Toast.LENGTH_SHORT).show();
+			} else if(!hasUniqueName()) {
+				Toast.makeText(this, "The name for your goal has to be unique", Toast.LENGTH_SHORT).show();
 			} else {
 				startActivity(createIntent());
 				finish();
@@ -100,6 +107,15 @@ public class SavingsGoalActivity extends Activity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	private boolean hasUniqueName() {
+		for(String otherName : nameList) {
+			if(name.getText().toString().equals(otherName)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public Intent createIntent() {
