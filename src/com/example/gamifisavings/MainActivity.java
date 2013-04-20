@@ -35,7 +35,7 @@ import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends Activity {
 
 	private Intent intent;
 	private ArrayList<SaveGoal> saveGoals = new ArrayList<SaveGoal>();
@@ -136,11 +136,5 @@ public class MainActivity extends Activity implements OnClickListener {
 		default:
 			return true;
 		}
-	}
-
-	@Override
-	public void onClick(View v) {
-		Toast.makeText(this, "Clicked.", Toast.LENGTH_SHORT).show();
-		Log.v("SaveGoalView", "onClick");
 	}
 }

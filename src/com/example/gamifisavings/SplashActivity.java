@@ -34,7 +34,7 @@ public class SplashActivity extends Activity {
 		public void run() {
 			try {
 				// Sleeping
-				Thread.sleep(SLEEP_TIME*1000);
+				Thread.sleep(SLEEP_TIME*1);
 			} catch (Exception e) {
 				Log.e(TAG, e.getMessage());
 			}

@@ -4,12 +4,15 @@ import java.util.Calendar;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.view.View.OnClickListener;
 
-public class SaveGoalView extends LinearLayout {
+public class SaveGoalView extends LinearLayout implements OnClickListener {
 
 	public static final String DAYS_LEFT = "days left";
 	public static final String DAYS_DUE = "days due";
@@ -31,6 +34,7 @@ public class SaveGoalView extends LinearLayout {
 		String inflatorService = Context.LAYOUT_INFLATER_SERVICE;
 		LayoutInflater layoutInflator = (LayoutInflater) getContext().getSystemService(inflatorService);
 		layoutInflator.inflate(R.layout.save_goal_view, this, true);
+		setOnClickListener(this);
 
 		loadViews();
 	}
@@ -76,5 +80,11 @@ public class SaveGoalView extends LinearLayout {
 			days.setVisibility(View.VISIBLE);
 			leftOrDue.setVisibility(View.VISIBLE);	
 		}		
+	}
+
+	@Override
+	public void onClick(View v) {
+		Toast.makeText(context, name.getText().toString(), Toast.LENGTH_SHORT).show();
+		//Log.v("ViewClicked", name.getText().toString());
 	}
 }
