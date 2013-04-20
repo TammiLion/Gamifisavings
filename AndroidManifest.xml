@@ -23,12 +23,20 @@
             </intent-filter>
         </activity>
         <activity
-        	android:name="com.example.gamifisavings.MainActivity"
-        	android:label="@string/app_name" >
+            android:name="com.example.gamifisavings.MainActivity"
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.example.gamifisavings.SavingsGoalActivity"
             android:label="@string/title_activity_savings_goal"
+            android:parentActivityName="com.example.gamifisavings.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.gamifisavings.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.gamifisavings.SaveGoalStatus"
+            android:label="@string/title_activity_save_goal_status"
             android:parentActivityName="com.example.gamifisavings.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

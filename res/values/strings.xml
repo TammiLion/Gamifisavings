@@ -13,5 +13,9 @@
     <string name="amount_goal">Amount</string>
     <string name="begin_date">Set begin date</string>
     <string name="end_date">Set end date</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_activity_save_goal_status">SaveGoalStatus</string>
 
 </resources>

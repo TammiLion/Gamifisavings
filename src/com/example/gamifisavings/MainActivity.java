@@ -62,15 +62,10 @@ public class MainActivity extends Activity {
 		linearLayout.setOrientation(LinearLayout.VERTICAL);
 
 		for(SaveGoal goal: saveGoals) {
-			SaveGoalView newView = new SaveGoalView(this);
-			newView.setName(goal.getName());
-			newView.setAmount(goal.getAmount());
-			newView.setDays(goal.getEndDate());
+			SaveGoalView newView = new SaveGoalView(this, goal);
 			newView.setPadding(10, 5, 10, 5);
-			//newView.setOnClickListener(this);
 			linearLayout.addView(newView);
 		}
-
 		scrollView.addView(linearLayout);
 		setContentView(scrollView);
 	}
