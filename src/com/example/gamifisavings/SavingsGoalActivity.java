@@ -5,7 +5,6 @@ import java.util.Calendar;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,12 +16,12 @@ import android.support.v4.app.NavUtils;
 
 public class SavingsGoalActivity extends Activity {
 
+	private ArrayList<SaveGoal> saveGoals;
 	private EditText name;
 	private EditText amount;
 	private DatePicker beginDate;
 	private DatePicker endDate;
 	private boolean hasDates = false;
-	private ArrayList<String> nameList = new ArrayList<String>();
 	private Calendar beginCalendar = Calendar.getInstance();
 	private Calendar endCalendar = Calendar.getInstance();
 	private OnDateChangedListener beginDateListener = new OnDateChangedListener() {
@@ -55,9 +54,7 @@ public class SavingsGoalActivity extends Activity {
 		setContentView(R.layout.activity_savings_goal);
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-
-		nameList = getIntent().getStringArrayListExtra("NameList");
-
+		saveGoals = Storage.load(this);
 		name = (EditText) findViewById(R.id.name_goal);
 		amount = (EditText) findViewById(R.id.amount_goal);
 		beginDate = (DatePicker) findViewById(R.id.begin_date);
@@ -100,6 +97,8 @@ public class SavingsGoalActivity extends Activity {
 			} else if(!hasUniqueName()) {
 				Toast.makeText(this, "The name for your goal has to be unique", Toast.LENGTH_SHORT).show();
 			} else {
+				saveGoals.add(createSaveGoal());
+				Storage.save(saveGoals, this);
 				startActivity(createIntent());
 				finish();
 			}
@@ -109,29 +108,36 @@ public class SavingsGoalActivity extends Activity {
 		}
 	}
 
+	// Checks if the newly entered name is unique.
 	private boolean hasUniqueName() {
-		for(String otherName : nameList) {
-			if(name.getText().toString().equals(otherName)) {
+		for(SaveGoal saveGoal : saveGoals) {
+			if(name.getText().toString().equals(saveGoal.getName())) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	public Intent createIntent() {
+	// Returns a new SaveGoal with the user inputted values.
+	private SaveGoal createSaveGoal() {
+		SaveGoal saveGoal = new SaveGoal(name.getText().toString());
+		//Checks if amount has been filled in.
+		if(amount.getText().toString().matches("[0-9]+")) {
+			saveGoal.setAmount(Integer.parseInt(amount.getText().toString()));
+		}
+		// Checks if end and begin date are set.
+		if(hasDates) {
+			saveGoal.setBeginDate(beginCalendar.getTimeInMillis());
+			saveGoal.setEndDate(endCalendar.getTimeInMillis());
+		}
+		return saveGoal;
+	}
+
+	// Creates an Intent to send to MainActivity.
+	private Intent createIntent() {
 		Intent intent = new Intent(this, MainActivity.class);
 		//Makes sure that when you press back at MainActivity you go to home screen instead of through activity stack
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
-		intent.putExtra("GoalName", name.getText().toString());
-		//Checks if amount has been filled in.
-		if(amount.getText().toString().matches("[0-9]+")) {
-			intent.putExtra("GoalAmount", Integer.parseInt(amount.getText().toString()));
-		}
-		if(hasDates) {
-			intent.putExtra("BeginDate", beginCalendar.getTimeInMillis());
-			intent.putExtra("EndDate", endCalendar.getTimeInMillis());
-		}
-
 		return intent;
 	}
 
